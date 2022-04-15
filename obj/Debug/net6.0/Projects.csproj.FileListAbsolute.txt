@@ -1,0 +1,15 @@
+D:\Study\C#\Projects\bin\Debug\net6.0\Projects.exe
+D:\Study\C#\Projects\bin\Debug\net6.0\Projects.deps.json
+D:\Study\C#\Projects\bin\Debug\net6.0\Projects.runtimeconfig.json
+D:\Study\C#\Projects\bin\Debug\net6.0\Projects.dll
+D:\Study\C#\Projects\bin\Debug\net6.0\Projects.pdb
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.csproj.AssemblyReference.cache
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.GeneratedMSBuildEditorConfig.editorconfig
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.AssemblyInfoInputs.cache
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.AssemblyInfo.cs
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.csproj.CoreCompileInputs.cache
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.dll
+D:\Study\C#\Projects\obj\Debug\net6.0\refint\Projects.dll
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.pdb
+D:\Study\C#\Projects\obj\Debug\net6.0\Projects.genruntimeconfig.cache
+D:\Study\C#\Projects\obj\Debug\net6.0\ref\Projects.dll
