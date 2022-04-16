@@ -7,10 +7,11 @@ class Calc
   private int year;
   public bool Check(string date)
   {
-    if ((date.Length != 10) && (date[2] != '.') && (date[5] != '.'))
-      return true;
-    else 
+    // if ((date.Length != 10) && (date[2] != '.') && (date[5] != '.'))
+    if ((date.Length == 10) && (date[2] == '.') && (date[5] == '.'))
       return false;
+    else 
+      return true;
   }
 }
 
