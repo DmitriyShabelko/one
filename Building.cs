@@ -1,99 +1,144 @@
 using System;
 
-class Check
+class Validation
 {
   public int Day;
+  public int Month;
+  public int Year;
   private string _daystring;
   private string _monthstring;
   private string _yearstring;
-  public int Month;
-  public int Year;
   private bool CheckTryParse(string _daystring, string _monthstring, string _yearstring)
   {
-    if (int.TryParse(_daystring, out Day) 
-      && int.TryParse(_monthstring, out Month)
-      && int.TryParse(_yearstring, out Year))
-      return true;
-    else 
-      return false; 
+    return !int.TryParse(_daystring, out Day)
+      || !int.TryParse(_monthstring, out Month)
+      || !int.TryParse(_yearstring, out Year);
   }
   private bool CheckDay(int day)
   {
-    if (day <= 31 && day >= 1)
-      return true;
-    else 
-      return false;
+    return !(day <= 31) || !(day >= 1);
   }
 
   private bool CheckMonthYear(int month, int year)
   {
-    if (month <= 12 && month >= 1 && year >= 1)
-      return true;
-    else 
-      return false;
+    return !(month <= 12) || (month >= 1) || (year >= 1);
   }
 
   public bool CheckDate(string date)
   {
-    if (date.Length == 10 && date[2] == '.' && date[5] == '.')
+    if (!(date.Length == 10) || !(date[2] == '.') || !(date[5] == '.'))
+      return false;
+    else
     {
       string[] subs = date.Split('.', 3);
       _daystring = subs[0];
       _monthstring = subs[1];
       _yearstring = subs[2];
-      if (!CheckTryParse(_daystring, _monthstring, _yearstring))
-        return true;
-      if (!CheckDay(Day) || !CheckMonthYear(Month, Year))
-        return true;
-      return false;
-    }
-    else 
-      return true;
+      return CheckTryParse(_daystring, _monthstring, _yearstring) || !CheckDay(Day) || !CheckMonthYear(Month, Year);
+    }     
   }
 }
 
 class InputTextDate
 {
+  Validation r1 = new Validation();
   private int _ten;
-  public string[] MonthText = {"Січня", "Лютого", "Березня", "Квітня", "Травня", "Червня", 
+  private string[] _monthText = {"Січня", "Лютого", "Березня", "Квітня", "Травня", "Червня", 
                                 "Липня", "Серпня", "Вересня", "Жовтня", "Листопада", "Грудня"};                  
-                                
-  public string NumInTextDay(int day)
+  private Dictionary<int, string> _dayText = new Dictionary<int, string>()
   {
-    var DayText = new Dictionary<int, string>()
-    {
-      [1] = "Перше",
-      [2] = "Друге",
-      [3] = "Третє",
-      [4] = "Четверте",
-      [5] = "П'яте",
-      [6] = "Шосте",
-      [7] = "Сьоме",
-      [8] = "Восьме",
-      [9] = "Дев'яте",
-      [10] = "Десяте",
-      [11] = "Одинадцяте",
-      [12] = "Дванадцяте",
-      [13] = "Тринадцяте",
-      [14] = "Чотирнадцяте",
-      [15] = "П'ятнадцяте",
-      [16] = "Шістнадцяте",
-      [17] = "Сімнадцяте",
-      [18] = "Вісімнадцяте",
-      [19] = "Дев'ятнадцяте",
-      [20] = "Двадцяте",
-      [21] = "Двадцять",
-      [30] = "Тридцяте",
-      [31] = "Тридцять",
-    };
+    [1] = "Перше",
+    [2] = "Друге",
+    [3] = "Третє",
+    [4] = "Четверте",
+    [5] = "П'яте",
+    [6] = "Шосте",
+    [7] = "Сьоме",
+    [8] = "Восьме",
+    [9] = "Дев'яте",
+    [10] = "Десяте",
+    [11] = "Одинадцяте",
+    [12] = "Дванадцяте",
+    [13] = "Тринадцяте",
+    [14] = "Чотирнадцяте",
+    [15] = "П'ятнадцяте",
+    [16] = "Шістнадцяте",
+    [17] = "Сімнадцяте",
+    [18] = "Вісімнадцяте",
+    [19] = "Дев'ятнадцяте",
+    [20] = "Двадцяте",
+    [21] = "Двадцять",
+    [30] = "Тридцяте",
+    [31] = "Тридцять",
+  };  
+  private Dictionary<int, string> _yearText = new Dictionary<int, string>()
+  {
+    [1] = "Тисяча",
+    [2] = "Дві",
+    [3] = "Три",
+    [4] = "Чотири",
+    [5] = "П'ять",
+    [6] = "Шість",
+    [7] = "Сім",
+    [8] = "Вісім",
+    [9] = "Дев'ять",
+    [10] = "Тисячі",
+    [11] = "Тисяч",
+  };   
+  private Dictionary<int, string> _hundredText = new Dictionary<int, string>()
+  {
+    [1] = "Сто",
+    [2] = "Двухсот",
+    [3] = "Триста",
+    [4] = "Чотириста",
+    [5] = "П'ятьсот",
+    [6] = "Шістьсот",
+    [7] = "Сімсот",
+    [8] = "Вісімсот",
+    [9] = "Дев'ятсот",
+  };   
+  private Dictionary<int, string> _tenText = new Dictionary<int, string>()
+  {
+    [2] = "Двадцять",
+    [3] = "Тридцять",
+    [4] = "Сорок",
+    [5] = "П'ятьдесят",
+    [6] = "Шістьдесят",
+    [7] = "Сімдесят",
+    [8] = "Вісімдесят",
+    [9] = "Дев'яносто",
+  }; 
+  private Dictionary<int, string> _unitText = new Dictionary<int, string>()
+  {
+    [1] = "Першого",
+    [2] = "Другого",
+    [3] = "Третього",
+    [4] = "Четвертого",
+    [5] = "П'ятого",
+    [6] = "Шостого",
+    [7] = "Сьомого",
+    [8] = "Восьмого",
+    [9] = "Дев'ятого",
+    [11] = "Одинадцятого",
+    [12] = "Дванадцятого",
+    [13] = "Тринадцятого",
+    [14] = "Чотирнадцятого",
+    [15] = "П'ятнадцятого",
+    [16] = "Шістнадцятого",
+    [17] = "Сімнадцятого",
+    [18] = "Вісімнадцятого",
+    [19] = "Дев'ятнадцятого",
+  };                     
+  public string NumInTextDay(int day)
+  {    
     if (day < 20 || day % 10 == 0)
-      return (" " + DayText[day]);
+      return String.Format(" {0}", _dayText[day]);
     else 
-      return (" " + DayText[day / 10 * 10 + 1] + " " + DayText[day % 10]);
+      return String.Format(" {0} {1}", _dayText[day / 10 * 10 + 1], _dayText[day % 10]);
   }
   public string NumInTextMonth(int month)
   {
-    return MonthText[month-1];
+    return _monthText[month-1];
   }
   public string NumInTextYear(int year)
   {
@@ -111,64 +156,24 @@ class InputTextDate
             NumInTextUnit(unit));
   }
   private string NumInTextThousand(int thousand)
-  {
-    var YearText = new Dictionary<int, string>()
-    {
-      [1] = "Тисяча",
-      [2] = "Дві",
-      [3] = "Три",
-      [4] = "Чотири",
-      [5] = "П'ять",
-      [6] = "Шість",
-      [7] = "Сім",
-      [8] = "Вісім",
-      [9] = "Дев'ять",
-      [10] = "Тисячі",
-      [11] = "Тисяч",
-    };
+  {    
     if (thousand > 1 && thousand <= 5)
-      return (YearText[thousand] + " " + YearText[10]);
+      return String.Format("{0} {1}", _yearText[thousand], _yearText[10]);
     else if (thousand >= 6)
-      return (YearText[thousand] + " " + YearText[11]);
+      return String.Format("{0} {1}",_yearText[thousand], _yearText[11]);
     else if (thousand == 1)
-      return YearText[thousand];
+      return _yearText[thousand];
     else 
       return "";
   }
   private string NumInTextHundred(int hundred)
   {
-    var HundredText = new Dictionary<int, string>()
-    {
-      [1] = "Сто",
-      [2] = "Двісті",
-      [3] = "Триста",
-      [4] = "Чотириста",
-      [5] = "П'ятьсот",
-      [6] = "Шістьсот",
-      [7] = "Сімсот",
-      [8] = "Вісімсот",
-      [9] = "Дев'ятсот",
-    };
-    if (hundred > 0)
-      return (" " + HundredText[hundred]);
-    else
-      return "";
+    return (hundred > 0) ? String.Format(" {0}", _hundredText[hundred]) : "";
   }
   private string NumInTextTen(int ten)
-  {
-    var TenText = new Dictionary<int, string>()
-    {
-      [2] = "Двадцять",
-      [3] = "Тридцять",
-      [4] = "Сорок",
-      [5] = "П'ятьдесят",
-      [6] = "Шістьдесят",
-      [7] = "Сімдесят",
-      [8] = "Вісімдесят",
-      [9] = "Дев'яносто",
-    };
+  {    
     if (ten >= 2)
-      return (" " + TenText[ten]);
+      return (" " + _tenText[ten]);
     else if (ten == 0)
       return "";
     else 
@@ -179,50 +184,33 @@ class InputTextDate
   }
   private string NumInTextUnit(int unit)
   {
-    var UnitText = new Dictionary<int, string>()
-    {
-      [1] = "Першого",
-      [2] = "Другого",
-      [3] = "Третього",
-      [4] = "Четвертого",
-      [5] = "П'ятого",
-      [6] = "Шостого",
-      [7] = "Сьомого",
-      [8] = "Восьмого",
-      [9] = "Дев'ятого",
-      [11] = "Одинадцятого",
-      [12] = "Дванадцятого",
-      [13] = "Тринадцятого",
-      [14] = "Чотирнадцятого",
-      [15] = "П'ятнадцятого",
-      [16] = "Шістнадцятого",
-      [17] = "Сімнадцятого",
-      [18] = "Вісімнадцятого",
-      [19] = "Дев'ятнадцятого",
-    };
     if (_ten == 1)
-      return (" " + UnitText[unit + 10] + " року");
+      return String.Format(" {0} року", _unitText[unit + 10]);
     else if (unit == 0)
-      return ("" + " року"); 
+      return (" року"); 
     else
-      return (" " + UnitText[unit] + " року");
+      return String.Format(" {0} року",_unitText[unit]);
+  }
+  public string Сonclusion()
+  {
+    return String.Format("{0} {1} {2}", NumInTextDay(r1.Day), NumInTextMonth(r1.Month), NumInTextYear(r1.Year));
   }
 }
 class InputConclusion
 {
   static void Main()
   {
-    Check r1 = new Check();
+    Validation r1 = new Validation();
     InputTextDate r2 = new InputTextDate();
     string date;
     do
     {
     Console.WriteLine("Введите дату формата dd.mm.yyyy: ");
     date = Console.ReadLine();
-    } while(r1.CheckDate(date));
+    } while(!r1.CheckDate(date));
     Console.WriteLine("Введенная дата: " + date);
-    Console.WriteLine("Введенная дата словами: " + r2.NumInTextDay(r1.Day) + 
-                                             " " + r2.NumInTextMonth(r1.Month) +
-                                             " " + r2.NumInTextYear(r1.Year));
+    // Console.WriteLine(String.Format("{0} {1} {2}", r2.NumInTextDay(r1.Day), r2.NumInTextMonth(r1.Month), r2.NumInTextYear(r1.Year)));
+      // "Введенная дата словами: " + r2.Сonclusion());
+    Console.WriteLine("Введенная дата словами: " + r2.Сonclusion());
   }
 }
