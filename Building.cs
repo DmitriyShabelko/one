@@ -87,9 +87,9 @@ class InputTextDate
       [31] = "Тридцять",
     };
     if (day < 20 || day % 10 == 0)
-      return DayText[day];
+      return (" " + DayText[day]);
     else 
-      return (DayText[day / 10 * 10 + 1] + " " + DayText[day % 10]);
+      return (" " + DayText[day / 10 * 10 + 1] + " " + DayText[day % 10]);
   }
   public string NumInTextMonth(int month)
   {
@@ -105,8 +105,10 @@ class InputTextDate
     hundred = year / 100 % 10;
     ten = year / 10 % 10;
     unit = year % 10;
-    return (NumInTextThousand(thousand) + " " + NumInTextHundred(hundred) + " " + 
-            NumInTextTen(ten) + " " + NumInTextUnit(unit));
+    return (NumInTextThousand(thousand) + 
+            NumInTextHundred(hundred) + 
+            NumInTextTen(ten) + 
+            NumInTextUnit(unit));
   }
   private string NumInTextThousand(int thousand)
   {
@@ -148,7 +150,7 @@ class InputTextDate
       [9] = "Дев'ятсот",
     };
     if (hundred > 0)
-      return HundredText[hundred];
+      return (" " + HundredText[hundred]);
     else
       return "";
   }
@@ -166,7 +168,7 @@ class InputTextDate
       [9] = "Дев'яносто",
     };
     if (ten >= 2)
-      return TenText[ten];
+      return (" " + TenText[ten]);
     else if (ten == 0)
       return "";
     else 
@@ -199,11 +201,11 @@ class InputTextDate
       [19] = "Дев'ятнадцятого",
     };
     if (_ten == 1)
-      return (UnitText[unit + 10] + " року");
+      return (" " + UnitText[unit + 10] + " року");
     else if (unit == 0)
       return ("" + " року"); 
     else
-      return (UnitText[unit] + " року");
+      return (" " + UnitText[unit] + " року");
   }
 }
 class InputConclusion
