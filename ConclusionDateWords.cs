@@ -41,7 +41,11 @@ class Validation
 
 class InputTextDate
 {
-  Validation r1 = new Validation();
+  Validation _validationField;
+  public InputTextDate(Validation validation)
+  {
+    _validationField = validation;
+  }
   private int _ten;
   private string[] _monthText = {"Січня", "Лютого", "Березня", "Квітня", "Травня", "Червня", 
                                 "Липня", "Серпня", "Вересня", "Жовтня", "Листопада", "Грудня"};                  
@@ -193,24 +197,28 @@ class InputTextDate
   }
   public string Сonclusion()
   {
-    return String.Format("{0} {1} {2}", NumInTextDay(r1.Day), NumInTextMonth(r1.Month), NumInTextYear(r1.Year));
+    return String.Format("{0} {1} {2}", 
+                          NumInTextDay(_validationField.Day), 
+                          NumInTextMonth(_validationField.Month), 
+                          NumInTextYear(_validationField.Year));
   }
 }
 class InputConclusion
 {
   static void Main()
   {
-    Validation r1 = new Validation();
-    InputTextDate r2 = new InputTextDate();
-    string date;
+    Validation _validationField = new Validation();
+    InputTextDate inputTextDate = new InputTextDate(_validationField);
+    String date;
     do
     {
     Console.WriteLine("Введите дату формата dd.mm.yyyy: ");
     date = Console.ReadLine();
-    } while(!r1.CheckDate(date));
+    // date = "24.10.2312";
+    } while(!_validationField.CheckDate(date));
     Console.WriteLine("Введенная дата: " + date);
     // Console.WriteLine(String.Format("{0} {1} {2}", r2.NumInTextDay(r1.Day), r2.NumInTextMonth(r1.Month), r2.NumInTextYear(r1.Year)));
       // "Введенная дата словами: " + r2.Сonclusion());
-    Console.WriteLine("Введенная дата словами: " + r2.Сonclusion());
+    Console.WriteLine("Введенная дата словами: " + inputTextDate.Сonclusion());
   }
 }
